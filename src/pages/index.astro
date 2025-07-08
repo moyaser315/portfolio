@@ -46,9 +46,9 @@ const { Content: About } = await render(about!);
 		</Card>
 		<Card>
 			<h3 class="no-mt">Socials</h3>
-			<ul class="overview-list">
+			<ul class="overview-list" style="display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0;">
 				{socials.map((item) => (
-					<li>
+					<li style="margin: 0;">
 						<a href={item.data.link} class="socials-link">
 							<Icon type={item.data.icon.type} name={item.data.icon.name as any} width={24} height={24} class='glow-icon' />
 							<span>{item.data.text}</span>
@@ -57,7 +57,6 @@ const { Content: About } = await render(about!);
 				))}
 			</ul>
 		</Card>
-	</div>
 	<div class="layout-grid-right" slot="right">
 		<Card>
 			<div class="header-container">

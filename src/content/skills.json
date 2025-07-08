@@ -4,9 +4,9 @@
       "title": "Backend",
       "skills": [
         {
-          "name": "Node.js",
-          "icon": "nodedotjs",
-          "color": "#339933",
+          "name": "FastAPI",
+          "icon": "fastapi",
+          "color": "#009688",
           "level": "Advanced"
         },
         {
@@ -66,35 +66,6 @@
           "name": "Pandas",
           "icon": "pandas",
           "color": "#150458",
-          "level": "Advanced"
-        }
-      ]
-    },
-    {
-      "title": "Frontend",
-      "skills": [
-        {
-          "name": "React",
-          "icon": "react",
-          "color": "#61DAFB",
-          "level": "Advanced"
-        },
-        {
-          "name": "TypeScript",
-          "icon": "typescript",
-          "color": "#3178C6",
-          "level": "Advanced"
-        },
-        {
-          "name": "Astro",
-          "icon": "astro",
-          "color": "#FF5D01",
-          "level": "Intermediate"
-        },
-        {
-          "name": "Tailwind CSS",
-          "icon": "tailwindcss",
-          "color": "#06B6D4",
           "level": "Advanced"
         }
       ]
