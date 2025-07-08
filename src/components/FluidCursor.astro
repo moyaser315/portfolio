@@ -5,36 +5,45 @@
 <canvas id="fluid-cursor-canvas"></canvas>
 
 <script>
-  import { Renderer, Camera, Transform, Mesh, Program, Geometry, Texture, RenderTarget } from 'https://cdn.skypack.dev/ogl';
+  import {
+    Renderer,
+    Camera,
+    Transform,
+    Mesh,
+    Program,
+    Geometry,
+    Texture,
+    RenderTarget,
+  } from "https://cdn.skypack.dev/ogl";
 
   class FluidCursor {
     constructor() {
-      this.canvas = document.getElementById('fluid-cursor-canvas');
+      this.canvas = document.getElementById("fluid-cursor-canvas");
       this.renderer = new Renderer({ canvas: this.canvas, alpha: true });
       this.gl = this.renderer.gl;
-      
+
       // Set canvas size
-      this.canvas.style.position = 'fixed';
-      this.canvas.style.top = '0';
-      this.canvas.style.left = '0';
-      this.canvas.style.pointerEvents = 'none';
-      this.canvas.style.zIndex = '9999';
-      
+      this.canvas.style.position = "fixed";
+      this.canvas.style.top = "0";
+      this.canvas.style.left = "0";
+      this.canvas.style.pointerEvents = "none";
+      this.canvas.style.zIndex = "9999";
+
       this.camera = new Camera(this.gl);
       this.camera.position.z = 1;
-      
+
       this.scene = new Transform();
-      
+
       this.mouse = { x: 0, y: 0 };
       this.velocity = { x: 0, y: 0 };
       this.lastMouse = { x: 0, y: 0 };
-      
+
       this.initFluid();
       this.addEventListeners();
       this.resize();
       this.render();
     }
-    
+
     initFluid() {
       // Create render targets for fluid simulation
       this.fbo = {
@@ -44,9 +53,9 @@
           let temp = this.fbo.read;
           this.fbo.read = this.fbo.write;
           this.fbo.write = temp;
-        }
+        },
       };
-      
+
       // Fluid simulation shaders
       const fluidVertex = `
         attribute vec2 position;
@@ -56,7 +65,7 @@
           gl_Position = vec4(position, 0.0, 1.0);
         }
       `;
-      
+
       const fluidFragment = `
         precision highp float;
         uniform sampler2D tFluid;
@@ -87,7 +96,7 @@
           gl_FragColor = fluid;
         }
       `;
-      
+
       // Display shader
       const displayVertex = `
         attribute vec2 position;
@@ -97,7 +106,7 @@
           gl_Position = vec4(position, 0.0, 1.0);
         }
       `;
-      
+
       const displayFragment = `
         precision highp float;
         uniform sampler2D tFluid;
@@ -114,33 +123,35 @@
           float glow = 1.0 - smoothstep(0.0, 0.6, dist);
           float innerGlow = 1.0 - smoothstep(0.0, 0.3, dist);
           
-          // Colors matching your theme
-          vec3 primaryColor = vec3(0.55, 0.36, 0.96);     // Your primary purple (140, 92, 245)
-          vec3 highlightColor = vec3(0.75, 0.55, 1.0);    // Bright purple
-          
+          // Colors matching your theme, but a bit darker
+
+
+          vec3 primaryColor = vec3(71.0/255.0, 19.0/255.0, 150.0/255.0);     // Darker purple
+          vec3 highlightColor = vec3(9.0/255.0, 0.0/255.0, 64.0/255.0);    
+
           // Only show effect around mouse and fluid movement
           vec3 color = vec3(0.0);
-          
-          // Add color only from mouse glow
+
+          // Reduce intensity for a less thick effect
           color += primaryColor * glow * 0.4;
           color += highlightColor * innerGlow * 0.3;
-          
-          // Add color only from fluid trails (mouse movement)
-          float fluidIntensity = length(fluid.xy) * 2.0;
-          color += primaryColor * fluidIntensity * 0.6;
-          
-          // Alpha only from mouse interaction and fluid movement
-          float alpha = glow * 0.5 + innerGlow * 0.3 + fluidIntensity * 0.4;
-          
+
+          // Add color only from fluid trails (mouse movement), less intense
+          float fluidIntensity = length(fluid.xy) * 1.5;
+          color += primaryColor * fluidIntensity * 0.2;
+
+          // Lower alpha for a subtler effect
+          float alpha = glow * 0.21 + innerGlow * 0.2 + fluidIntensity * 0.18;
+
           gl_FragColor = vec4(color, alpha);
         }
       `;
-      
+
       // Create geometry (fullscreen quad)
       const geometry = new Geometry(this.gl, {
         position: { size: 2, data: new Float32Array([-1, -1, 3, -1, -1, 3]) },
       });
-      
+
       // Fluid simulation program
       this.fluidProgram = new Program(this.gl, {
         vertex: fluidVertex,
@@ -149,10 +160,10 @@
           tFluid: { value: this.fbo.read.texture },
           uMouse: { value: [0, 0] },
           uVelocity: { value: [0, 0] },
-          uTime: { value: 0 }
-        }
+          uTime: { value: 0 },
+        },
       });
-      
+
       // Display program
       this.displayProgram = new Program(this.gl, {
         vertex: displayVertex,
@@ -160,74 +171,82 @@
         uniforms: {
           tFluid: { value: this.fbo.read.texture },
           uMouse: { value: [0, 0] },
-          uTime: { value: 0 }
-        }
+          uTime: { value: 0 },
+        },
       });
-      
+
       this.mesh = new Mesh(this.gl, { geometry, program: this.fluidProgram });
-      this.displayMesh = new Mesh(this.gl, { geometry, program: this.displayProgram });
+      this.displayMesh = new Mesh(this.gl, {
+        geometry,
+        program: this.displayProgram,
+      });
     }
-    
+
     addEventListeners() {
-      window.addEventListener('mousemove', (e) => {
+      window.addEventListener("mousemove", (e) => {
         const rect = this.canvas.getBoundingClientRect();
         this.mouse.x = (e.clientX - rect.left) / rect.width;
         this.mouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
-        
+
         // Calculate velocity
         this.velocity.x = (this.mouse.x - this.lastMouse.x) * 10;
         this.velocity.y = (this.mouse.y - this.lastMouse.y) * 10;
-        
+
         this.lastMouse.x = this.mouse.x;
         this.lastMouse.y = this.mouse.y;
       });
-      
-      window.addEventListener('resize', () => this.resize());
+
+      window.addEventListener("resize", () => this.resize());
     }
-    
+
     resize() {
       this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.camera.perspective({ aspect: window.innerWidth / window.innerHeight });
+      this.camera.perspective({
+        aspect: window.innerWidth / window.innerHeight,
+      });
     }
-    
+
     render() {
       const time = performance.now();
-      
+
       // Update fluid simulation
       this.renderer.render({
         scene: this.mesh,
         camera: this.camera,
-        target: this.fbo.write
+        target: this.fbo.write,
       });
-      
+
       this.fbo.swap();
-      
+
       // Update uniforms
       this.fluidProgram.uniforms.tFluid.value = this.fbo.read.texture;
       this.fluidProgram.uniforms.uMouse.value = [this.mouse.x, this.mouse.y];
-      this.fluidProgram.uniforms.uVelocity.value = [this.velocity.x, this.velocity.y];
+      this.fluidProgram.uniforms.uVelocity.value = [
+        this.velocity.x,
+        this.velocity.y,
+      ];
       this.fluidProgram.uniforms.uTime.value = time;
-      
+
       this.displayProgram.uniforms.tFluid.value = this.fbo.read.texture;
       this.displayProgram.uniforms.uMouse.value = [this.mouse.x, this.mouse.y];
       this.displayProgram.uniforms.uTime.value = time;
-      
+
       // Render to screen
       this.renderer.render({
         scene: this.displayMesh,
-        camera: this.camera
+        camera: this.camera,
       });
-      
+
       // Decay velocity
       this.velocity.x *= 0.9;
       this.velocity.y *= 0.9;
-      
+
       requestAnimationFrame(() => this.render());
     }
   }
-  
+
   // Initialize when DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     new FluidCursor();
   });
 </script>
@@ -243,7 +262,7 @@
     z-index: 1;
     mix-blend-mode: screen;
     opacity: 0.8;
-    font-family: 'Geist Mono', monospace;
+    font-family: "Geist Mono", monospace;
     user-select: none;
   }
 </style>
