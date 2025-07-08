@@ -1,0 +1,69 @@
+{
+  "categories": [
+    {
+      "title": "Languages",
+      "skills": [
+        { "name": "Python", "icon": "python", "color": "#3776AB", "level": "Advanced" },
+        { "name": "C#", "icon": "csharp", "color": "purple", "level": "Advanced" },
+        { "name": "C++", "icon": "cplusplus", "color": "#00599C", "level": "Intermediate" },
+        { "name": "C", "icon": "c", "color": "#A8B9CC", "level": "Intermediate" },
+        { "name": "Java", "icon": "java", "color": "#ff0000", "level": "Intermediate" },
+        { "name": "JavaScript", "icon": "javascript", "color": "#F7DF1E", "level": "Intermediate" },
+        { "name": "Matlab", "icon": "matlab", "color": "#0076A8", "level": "Beginner" },
+        { "name": "Shell", "icon": "gnubash", "color": "#4EAA25", "level": "Beginner" }
+      ]
+    },
+    {
+      "title": "Frameworks & Libraries",
+      "skills": [
+        { "name": "ASP.NET Core", "icon": "dotnet", "color": "#512BD4", "level": "Advanced" },
+        { "name": "FastAPI", "icon": "fastapi", "color": "#009688", "level": "Advanced" },
+        { "name": "Razor Pages", "icon": "dotnet", "color": "#512BD4", "level": "Intermediate" },
+        { "name": "Node.js", "icon": "nodedotjs", "color": "#339933", "level": "Beginner" },
+        { "name": "Bootstrap", "icon": "bootstrap", "color": "#7952B3" },
+        { "name": "Pydantic", "icon": "pydantic", "color": "#E92063", "level": "Advanced" },
+        { "name": "SQLAlchemy", "icon": "sqlalchemy", "color": "#D71F00", "level": "Intermediate" }
+      ]
+    },
+    {
+      "title": "Databases & ORMs",
+      "skills": [
+        { "name": "PostgreSQL", "icon": "postgresql", "color": "#4169E1", "level": "Advanced" },
+        { "name": "MongoDB", "icon": "mongodb", "color": "#47A248", "level": "Intermediate" },
+        { "name": "Redis", "icon": "redis", "color": "#DC382D", "level": "Beginner" },
+        { "name": "Entity Framework", "icon": "dotnet", "color": "#512BD4", "level": "Advanced" },
+        { "name": "Linq", "icon": "dotnet", "color": "#512BD4", "level": "Advanced" },
+        { "name": "SQLite", "icon": "sqlite", "color": "#009688", "level": "Advanced" }
+      ]
+    },
+    {
+      "title": "AI & Data Science",
+      "skills": [
+        { "name": "PyTorch", "icon": "pytorch", "color": "#EE4C2C", "level": "Advanced" },
+        { "name": "Numpy", "icon": "numpy", "color": "#013243", "level": "Advanced" },
+        { "name": "Pandas", "icon": "pandas", "color": "#150458", "level": "Advanced" },
+        { "name": "Matplotlib", "icon": "matplotlib", "color": "#11557C", "level": "Intermediate" },
+        { "name": "Seaborn", "icon": "seaborn", "color": "#3776AB", "level": "Intermediate" },
+        { "name": "scikit-learn", "icon": "scikitlearn", "color": "#F7931E", "level": "Advanced" },
+        { "name": "OpenCV", "icon": "opencv", "color": "#412991", "level": "Intermediate" }
+      ]
+    },
+    {
+      "title": "Developer Tools & Platforms",
+      "skills": [
+        { "name": "Git", "icon": "git", "color": "#F05032" },
+        { "name": "GitHub", "icon": "github", "color": "#181717" },
+        { "name": "GitHub Actions", "icon": "githubactions", "color": "#2088FF" },
+        { "name": "Jupyter", "icon": "jupyter", "color": "#F37626" },
+        { "name": "Linux", "icon": "linux", "color": "#FCC624" },
+        { "name": "Pop!_OS", "icon": "popos", "color": "#48B9C7" },
+        { "name": "Postman", "icon": "postman", "color": "#FF6C37" },
+        { "name": "Swagger", "icon": "swagger", "color": "#85EA2D" },
+        { "name": "Kaggle", "icon": "kaggle", "color": "#20BEFF" },
+        { "name": "Docker", "icon": "docker", "color": "#2496ED" },
+        { "name": "Google Colab", "icon": "googlecolab", "color": "#F9AB00" },
+        { "name": "Obsidian", "icon": "obsidian", "color": "#483699" }
+      ]
+    }
+  ]
+}

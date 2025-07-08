@@ -3,9 +3,9 @@
     "id": 1,
     "icon": {
       "type": "lucide",
-      "name": "cake"
+      "name": "target"
     },
-    "text": "23"
+    "text": "Software Engineer"
   },
   {
     "id": 2,
@@ -14,6 +14,6 @@
       "name": "earth"
     },
     "type": "lucide",
-    "text": "Made in Egypt"
+    "text": "Cairo, Egypt"
   }
 ]

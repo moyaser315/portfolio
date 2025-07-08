@@ -1,0 +1,87 @@
+---
+import hacks from '../content/hacks.json';
+---
+
+<section class="hacks-section">
+  <h2 class="section-title">🏆 Hackathons & Prizes</h2>
+  <div class="hacks-grid">
+    {hacks.map((hack) => (
+      <div class="hack-card">
+        <h3 class="hack-name">{hack.name}</h3>
+        <p class="hack-award">{hack.award}</p>
+        <p class="hack-description">{hack.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .hacks-section {
+    margin: 2rem 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: hsl(var(--foreground));
+    text-align: center;
+  }
+
+  .hacks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .hack-card {
+    padding: 1rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    background-color: hsl(var(--background));
+    transition: transform 0.2s ease;
+  }
+
+  .hack-card:hover {
+    transform: translateY(-4px);
+    background-color: hsl(var(--accent));
+  }
+
+  .hack-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: hsl(var(--foreground));
+  }
+
+  .hack-award {
+    font-size: 0.9rem;
+    color: hsl(var(--muted-foreground));
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .hack-description {
+    font-size: 0.85rem;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.4;
+  }
+
+  @media (max-width: 640px) {
+    .section-title {
+      font-size: 1.25rem;
+    }
+
+    .hack-card {
+      padding: 0.75rem;
+    }
+
+    .hack-name {
+      font-size: 1rem;
+    }
+
+    .hack-award, .hack-description {
+      font-size: 0.8rem;
+    }
+  }
+</style>

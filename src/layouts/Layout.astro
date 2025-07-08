@@ -6,7 +6,7 @@ import Background from '../components/Background.astro';
 import Navbar from '../components/Navbar.astro';
 import LayoutGrid from '../components/LayoutGrid.astro';
 import { name, themeColor, twitterHandle } from 'spectre:globals';
-
+import FluidCursor from '../components/FluidCursor.astro';
 interface Props {
 	title: string;
 	description?: string;
@@ -63,6 +63,7 @@ const { title, description, image, pagefindIgnore, article } = Astro.props;
 	</head>
 	<body>
 		<main data-pagefind-ignore={pagefindIgnore}>
+			<FluidCursor />
 			<Navbar />
 			<LayoutGrid>
 				<slot name="left" slot="left" />
