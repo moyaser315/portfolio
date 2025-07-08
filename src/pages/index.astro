@@ -2,7 +2,7 @@
 import '../styles/index.css';
 
 import ProfilePicture from '../assets/pfp.png';
-
+import hacks from '../content/hacks.json';
 import Card from '../components/Card.astro';
 import Layout from '../layouts/Layout.astro';
 import Skills from '../components/Skills.astro';
@@ -123,6 +123,21 @@ const { Content: About } = await render(about!);
 						<span class="work-experience-role">{entry.data.title}</span>
 					<p class="work-experience-desc" set:html={entry.data.description.replace(/\n/g, '<br>')}></p>
 					</div>
+				))}
+			</div>
+		</Card>
+		<Card>
+			<div class="header-container">
+				<Icon type='lucide' name="briefcase-business" width={24} height={24} class='glow-icon' />
+				<h2>Hackathons</h2>
+			</div>
+			<div class="work-experience-container">
+			 {hacks.map((hack) => (
+				<div class="work-experience-entry">
+					<span class="work-experience-company">{hack.name}</span>
+					<h3 class="work-experience-role">{hack.award}</h3>
+					<span class="work-experience-desc" set:html={hack.description.replace(/\n/g, '<br>')}></span>
+				</div>
 				))}
 			</div>
 		</Card>
