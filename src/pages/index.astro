@@ -46,7 +46,7 @@ const { Content: About } = await render(about!);
 		</Card>
 		<Card>
 			<h3 class="no-mt">Socials</h3>
-			<ul class="overview-list" style="display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0;">
+			<ul class="overview-list" >
 				{socials.map((item) => (
 					<li style="margin: 0;">
 						<a href={item.data.link} class="socials-link">

@@ -1,17 +1,19 @@
 ---
-import hacks from '../content/hacks.json';
+import hacks from "../content/hacks.json";
 ---
 
 <section class="hacks-section">
   <h2 class="section-title">🏆 Hackathons & Prizes</h2>
   <div class="hacks-grid">
-    {hacks.map((hack) => (
-      <div class="hack-card">
-        <h3 class="hack-name">{hack.name}</h3>
-        <p class="hack-award">{hack.award}</p>
-        <p class="hack-description">{hack.description}</p>
-      </div>
-    ))}
+    {
+      hacks.map((hack) => (
+        <div class="hack-card">
+          <h3 class="hack-name">{hack.name}</h3>
+          <p class="hack-award">{hack.award}</p>
+          <p class="hack-description">{hack.description}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
 
@@ -80,7 +82,8 @@ import hacks from '../content/hacks.json';
       font-size: 1rem;
     }
 
-    .hack-award, .hack-description {
+    .hack-award,
+    .hack-description {
       font-size: 0.8rem;
     }
   }
