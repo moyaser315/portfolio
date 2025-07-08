@@ -112,7 +112,7 @@ const { Content: About } = await render(about!);
 						<span class="work-experience-duration">{entry.data.duration}</span>
 						<h3 class="work-experience-company">{entry.data.company}</h3>
 						<span class="work-experience-role">{entry.data.title}</span>
-						<p class="work-experience-desc">{entry.data.description}</p>
+					<p class="work-experience-desc" set:html={entry.data.description.replace(/\n/g, '<br>')}></p>
 					</div>
 				))}
 			</div>

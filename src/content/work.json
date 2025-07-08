@@ -1,9 +1,17 @@
 [
   {
     "id": 1,
-    "duration": "2024 - present",
-    "company": "Astro Community",
-    "title": "Astro Theme",
-    "description": "Existing as an Astro theme for anyone to use."
+    "duration": "June 2023 - August 2023",
+    "company": "Ain Shams University Virtual Hospital - HCM Labs",
+    "title": "Research Assistant",
+    "description": "• Developed a TCP communication module to retrieve real-time sensor data using XML commands.\n• Engineered a data synchronization system for motion capture cameras and metabolic energy sensors.\n• Automated the sensor calibration process, reducing setup time and improving accuracy.\n• Processed and structured large-scale physiological data, improving accessibility for researchers."
+  },
+  {
+    "id": 2,
+    "duration": "May 2024 - Nov 2024",
+    "company": "Scale AI",
+    "title": "AI Trainer - Data Science",
+    "description": "• Originally a 3-month contract, extended due to high performance until the project’s completion.\n• Processed and validated algorithm-related datasets, ensuring correctness for LLM training.\n• Assisted in debugging AI-generated code by identifying logical flaws and improving its ability to understand algorithms.\n• Improved data quality for algorithmic problem-solving and API responses, contributing to +80 validated algorithmic challenges."
   }
+  
 ]

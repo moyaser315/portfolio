@@ -32,18 +32,20 @@ const config = defineConfig({
     mdx(),
     sitemap(),
     spectre({
-      name: 'Spectre',
+      name: 'Mohamed Yaser',
+      twitterHandle: '@mohamed__315',
       openGraph: {
         home: {
-          title: 'Spectre',
-          description: 'A minimalistic theme for Astro.'
+          title: 'Mohamed Yaser',
+          description: 'A personal portfolio website.'
         },
         blog: {
           title: 'Blog',
-          description: 'News and guides for Spectre.'
+          description: 'News and guides for Mohamed Yaser.'
         },
         projects: {
-          title: 'Projects'
+          title: 'Projects',
+          description: 'Showcasing the work of Mohamed Yaser.'
         }
       },
       giscus: {
