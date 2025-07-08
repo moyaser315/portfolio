@@ -1,0 +1,247 @@
+---
+import skillsData from '../pages/skills.json';
+import * as simpleIcons from 'simple-icons';
+
+// Process all categories and their skills
+const categoriesWithIcons = skillsData.categories.map(category => ({
+  ...category,
+  skills: category.skills.map((skill) => {
+    const iconKey = `si${skill.icon.charAt(0).toUpperCase()}${skill.icon.slice(1)}`;
+    const icon = simpleIcons[iconKey] || simpleIcons[`si${skill.icon}`] || null;
+    
+    return {
+      ...skill,
+      svg: icon?.svg || null,
+      hex: icon?.hex || skill.color?.replace('#', '') || '000000'
+    };
+  })
+}));
+---
+
+<section class="skills-section">
+  {categoriesWithIcons.map((category, index) => (
+    <div class="skill-category">
+      <button 
+        class={`category-header ${index === 0 ? 'active' : ''}`}
+        aria-expanded={index === 0 ? 'true' : 'false'}
+        aria-controls={`skills-${category.title.toLowerCase().replace(/\s+/g, '-')}`}
+      >
+        <h3 class="category-title">{category.title}</h3>
+        <svg 
+          class="chevron" 
+          width="20" 
+          height="20" 
+          viewBox="0 0 20 20" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path 
+            d="M5 7.5L10 12.5L15 7.5" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <div 
+        class={`category-content ${index === 0 ? 'expanded' : ''}`}
+        id={`skills-${category.title.toLowerCase().replace(/\s+/g, '-')}`}
+      >
+        <div class="skills-grid">
+          {category.skills.map((skill) => (
+            <div class="skill-item">
+              {skill.svg ? (
+                <div 
+                  class="skill-icon" 
+                  set:html={skill.svg}
+                  style={`color: #${skill.hex}; fill: currentColor;`}
+                />
+              ) : (
+                <div class="skill-icon-placeholder">
+                  {skill.name.charAt(0)}
+                </div>
+              )}
+              <span class="skill-name">{skill.name}</span>
+              {skill.level && (
+                <span class="skill-level">{skill.level}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const headers = document.querySelectorAll('.category-header');
+    
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const isExpanded = header.classList.contains('active');
+        
+        // Toggle current section
+        if (isExpanded) {
+          header.classList.remove('active');
+          header.setAttribute('aria-expanded', 'false');
+          content.classList.remove('expanded');
+        } else {
+          header.classList.add('active');
+          header.setAttribute('aria-expanded', 'true');
+          content.classList.add('expanded');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .skills-section {
+    margin: 1rem 0;
+  }
+
+  .skill-category {
+    margin-bottom: 1rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  .category-header {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+  }
+
+  .category-header:hover {
+    background-color: hsl(var(--accent));
+  }
+
+  .category-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+
+  .chevron {
+    transition: transform 0.3s ease;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .category-header.active .chevron {
+    transform: rotate(180deg);
+  }
+
+  .category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .category-content.expanded {
+    max-height: 1000px;
+    transition: max-height 0.3s ease-in;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: calc(var(--radius) - 2px);
+    transition: all 0.2s;
+    background-color: transparent;
+    border: 1px solid transparent;
+  }
+
+  .skill-item:hover {
+    transform: translateY(-2px);
+    background-color: hsl(var(--accent));
+    border-color: hsl(var(--border));
+  }
+
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s;
+  }
+
+  .skill-item:hover .skill-icon {
+    transform: scale(1.1);
+  }
+
+  .skill-icon-placeholder {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: hsl(var(--muted));
+    border-radius: 50%;
+    font-weight: bold;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .skill-name {
+    font-weight: 500;
+    text-align: center;
+    font-size: 0.85rem;
+    color: hsl(var(--foreground));
+  }
+
+  .skill-level {
+    font-size: 0.7rem;
+    color: hsl(var(--muted-foreground));
+    text-align: center;
+  }
+
+  /* Match the glow effect from the template */
+  .skill-item:hover .skill-icon {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+
+  /* Responsive design */
+  @media (max-width: 640px) {
+    .skills-grid {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .skill-icon {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .skill-icon-placeholder {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .skill-name {
+      font-size: 0.75rem;
+    }
+    
+    .category-title {
+      font-size: 1rem;
+    }
+  }
+</style>

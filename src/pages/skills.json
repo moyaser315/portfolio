@@ -1,0 +1,103 @@
+{
+  "categories": [
+    {
+      "title": "Backend",
+      "skills": [
+        {
+          "name": "Node.js",
+          "icon": "nodedotjs",
+          "color": "#339933",
+          "level": "Advanced"
+        },
+        {
+          "name": "Python",
+          "icon": "python",
+          "color": "#3776AB",
+          "level": "Advanced"
+        },
+        {
+          "name": "PostgreSQL",
+          "icon": "postgresql",
+          "color": "#4169E1",
+          "level": "Intermediate"
+        },
+        {
+          "name": "MongoDB",
+          "icon": "mongodb",
+          "color": "#47A248",
+          "level": "Intermediate"
+        },
+        {
+          "name": "Docker",
+          "icon": "docker",
+          "color": "#2496ED",
+          "level": "Intermediate"
+        }
+      ]
+    },
+    {
+      "title": "AI & Machine Learning",
+      "skills": [
+        {
+          "name": "TensorFlow",
+          "icon": "tensorflow",
+          "color": "#FF6F00",
+          "level": "Intermediate"
+        },
+        {
+          "name": "PyTorch",
+          "icon": "pytorch",
+          "color": "#EE4C2C",
+          "level": "Intermediate"
+        },
+        {
+          "name": "OpenAI",
+          "icon": "openai",
+          "color": "#412991",
+          "level": "Advanced"
+        },
+        {
+          "name": "Jupyter",
+          "icon": "jupyter",
+          "color": "#F37626",
+          "level": "Advanced"
+        },
+        {
+          "name": "Pandas",
+          "icon": "pandas",
+          "color": "#150458",
+          "level": "Advanced"
+        }
+      ]
+    },
+    {
+      "title": "Frontend",
+      "skills": [
+        {
+          "name": "React",
+          "icon": "react",
+          "color": "#61DAFB",
+          "level": "Advanced"
+        },
+        {
+          "name": "TypeScript",
+          "icon": "typescript",
+          "color": "#3178C6",
+          "level": "Advanced"
+        },
+        {
+          "name": "Astro",
+          "icon": "astro",
+          "color": "#FF5D01",
+          "level": "Intermediate"
+        },
+        {
+          "name": "Tailwind CSS",
+          "icon": "tailwindcss",
+          "color": "#06B6D4",
+          "level": "Advanced"
+        }
+      ]
+    }
+  ]
+}

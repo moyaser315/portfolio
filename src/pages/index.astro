@@ -5,6 +5,7 @@ import ProfilePicture from '../assets/pfp.png';
 
 import Card from '../components/Card.astro';
 import Layout from '../layouts/Layout.astro';
+import Skills from '../components/Skills.astro';
 import ImageGlow from '../components/ImageGlow.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
@@ -65,6 +66,15 @@ const { Content: About } = await render(about!);
 			</div>
 			<div class="prose">
 				<About />
+			</div>
+		</Card>
+		<Card>
+			<div class="header-container">
+				<Icon type='lucide' name="bug-off" width={24} height={24} class='glow-icon' />
+				<h2>Skills</h2>
+			</div>
+			<div class="prose">
+				<Skills />
 			</div>
 		</Card>
 		<Card>
