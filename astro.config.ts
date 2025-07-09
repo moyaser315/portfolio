@@ -23,7 +23,8 @@ const {
 
 // https://astro.build/config
 const config = defineConfig({
-  site: 'https://spectre.louisescher.dev',
+  site: 'https://moyaser315.github.io',
+  base: '/portfolio',
   output: 'static',
   integrations: [
     expressiveCode({
