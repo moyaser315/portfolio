@@ -13,13 +13,14 @@ import { getEntry } from 'astro:content';
 import { render } from 'astro:content';
 import { name, openGraph } from 'spectre:globals';
 
-const [posts, projects, about, workExperience, quickInfo, socials] = await Promise.all([
+const [posts, projects, about, workExperience, quickInfo, socials, education] = await Promise.all([
 	getCollection('posts', (post) => post.data.draft !== true),
 	getCollection('projects'),
 	getEntry('other', 'about'),
 	getCollection('workExperience'),
 	getCollection('quickInfo'),
-	getCollection('socials')
+	getCollection('socials'),
+	getCollection('education')
 ]);
 
 // biome-ignore lint/style/noNonNullAssertion: Should always be defined.
@@ -33,10 +34,21 @@ const { Content: About } = await render(about!);
 >
 	<div class="layout-grid-left" slot="left">
 		<Card class="flex-col-card">
-			<ImageGlow quality={100} width={80} height={80} src={ProfilePicture} alt="Louis looking out of a window" loading='eager' />
+			<ImageGlow quality={100} width={80} height={80} src={ProfilePicture} alt="Real Geek" loading='eager' />
 			<h2>{name}</h2>
 			<ul class="overview-list">
 				{quickInfo.map((info) => (
+					<li>
+						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
+						<span>{info.data.text}</span>
+					</li>
+				))}
+			</ul>
+		</Card>
+		<Card>
+			<h3 class="no-mt">Education</h3>
+			<ul class="overview-list">
+				{education.map((info) => (
 					<li>
 						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
 						<span>{info.data.text}</span>
@@ -57,6 +69,7 @@ const { Content: About } = await render(about!);
 				))}
 			</ul>
 		</Card>
+
 	</div>
 	<div class="layout-grid-right" slot="right">
 		<Card>

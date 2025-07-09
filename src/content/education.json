@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "icon": {
+      "type": "lucide",
+      "name": "university"
+    },
+    "text": "Ain Shams University"
+  },
+  {
+    "id": 2,
+    "icon": {
+      "type": "lucide",
+      "name": "graduation-cap"
+    },
+    "text": "BSc. of Computer Engineering"
+  },
+  {
+    "id": 3,
+    "icon": {
+      "type": "lucide",
+      "name": "graduation-cap"
+    },
+    "text": "GPA : 3.16"
+  },
+  {
+    "id": 4,
+    "icon": {
+      "type": "lucide",
+      "name": "graduation-cap"
+    },
+    "text": "Capstone Grade : A+"
+  }
+]

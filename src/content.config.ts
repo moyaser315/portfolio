@@ -35,7 +35,14 @@ const socials = defineCollection({
     link: z.string().url(),
   })
 });
-
+const education = defineCollection({
+  loader: file("src/content/education.json"),
+  schema: z.object({
+    id: z.number(),
+    icon: z.union([lucideIconSchema, simpleIconSchema]),
+    text: z.string(),
+  })
+});
 const workExperience = defineCollection({
   loader: file("src/content/work.json"),
   schema: z.object({
@@ -43,7 +50,7 @@ const workExperience = defineCollection({
     title: z.string(),
     company: z.string(),
     duration: z.string(),
-    description: z.string(), // keep as string, handle <br> in rendering
+    description: z.string(),
   })
 });
 
@@ -87,4 +94,4 @@ const projects = defineCollection({
   })
 });
 
-export const collections = { tags, posts, projects, other, quickInfo, socials, workExperience };
+export const collections = { tags, posts, projects, other, quickInfo, socials, workExperience, education };
