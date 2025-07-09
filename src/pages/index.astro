@@ -13,7 +13,7 @@ import { getEntry } from "astro:content";
 import { render } from "astro:content";
 import { name, openGraph } from "spectre:globals";
 
-const [posts, projects, about, workExperience, quickInfo, socials] =
+const [posts, projects, about, workExperience, quickInfo, socials, education] =
   await Promise.all([
     getCollection("posts", (post) => post.data.draft !== true),
     getCollection("projects"),
@@ -21,6 +21,7 @@ const [posts, projects, about, workExperience, quickInfo, socials] =
     getCollection("workExperience"),
     getCollection("quickInfo"),
     getCollection("socials"),
+    getCollection("education"),
   ]);
 
 // biome-ignore lint/style/noNonNullAssertion: Should always be defined.
@@ -46,6 +47,24 @@ const { Content: About } = await render(about!);
       <ul class="overview-list">
         {
           quickInfo.map((info) => (
+            <li>
+              <Icon
+                type={info.data.icon.type}
+                name={info.data.icon.name as any}
+                width={24}
+                height={24}
+                class="glow-icon"
+              />
+              <span>{info.data.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </Card>
+    <Card class="flex-col-card">
+      <ul class="overview-list">
+        {
+          education.map((info) => (
             <li>
               <Icon
                 type={info.data.icon.type}
