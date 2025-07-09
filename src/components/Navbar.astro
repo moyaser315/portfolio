@@ -5,14 +5,14 @@ import { name } from 'spectre:globals';
 const path = Astro.url.pathname;
 ---
 <nav>
-  <a class="site-title" href="/">{name}</a>
+  <a class="site-title" href="/portfolio">{name}</a>
   <ul>
     <li>
-      <a href="/blog" class:list={{ active: path.startsWith('/blog') }}>Blog</a>
+      <a href="/portfolio/blog" class:list={{ active: path.startsWith('/blog') }}>Blog</a>
     </li>
     <li class="nav-separator">/</li>
     <li>
-      <a href="/projects" class:list={{ active: path.startsWith('/projects') }}>Projects</a>
+      <a href="/portfolio/projects" class:list={{ active: path.startsWith('/portfolio/projects') }}>Projects</a>
     </li>
     <li class="nav-separator">/</li>
     <li>
@@ -99,7 +99,7 @@ const path = Astro.url.pathname;
     if (e.target.dataset.loaded !== 'true') {
       e.target.dataset.loaded = 'true';
 
-      window.pagefind = await import("/pagefind/pagefind.js");
+      window.pagefind = await import("/portfolio/pagefind/pagefind.js");
     }
 
     results.innerHTML = '';

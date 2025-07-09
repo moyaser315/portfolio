@@ -162,7 +162,7 @@ const { Content: About } = await render(about!);
               )
               .slice(0, 2)
               .map((post) => (
-                <a href={`/blog/${post.id}`} class="post-container">
+                <a href={`/portfolio/blog/${post.id}`} class="post-container">
                   <div class="post-header">
                     <h3>{post.data.title}</h3>
                     <span class="post-date">
@@ -192,7 +192,7 @@ const { Content: About } = await render(about!);
               .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
               .slice(0, 2)
               .map((project) => (
-                <a href={`/projects/${project.id}`} class="post-container">
+                <a href={`/portfolio/projects/${project.id}`} class="post-container">
                   <div class="post-header">
                     <h3>{project.data.title}</h3>
                     <span class="post-date">
