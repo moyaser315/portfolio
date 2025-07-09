@@ -1,159 +1,312 @@
 ---
-import '../styles/index.css';
+import "../styles/index.css";
 
-import ProfilePicture from '../assets/pfp.png';
-import hacks from '../content/hacks.json';
-import Card from '../components/Card.astro';
-import Layout from '../layouts/Layout.astro';
-import Skills from '../components/Skills.astro';
-import ImageGlow from '../components/ImageGlow.astro';
-import Icon from '../components/Icon.astro';
-import { getCollection } from 'astro:content';
-import { getEntry } from 'astro:content';
-import { render } from 'astro:content';
-import { name, openGraph } from 'spectre:globals';
+import ProfilePicture from "../assets/pfp.png";
+import hacks from "../content/hacks.json";
+import Card from "../components/Card.astro";
+import Layout from "../layouts/Layout.astro";
+import Skills from "../components/Skills.astro";
+import ImageGlow from "../components/ImageGlow.astro";
+import Icon from "../components/Icon.astro";
+import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
+import { render } from "astro:content";
+import { name, openGraph } from "spectre:globals";
 
-const [posts, projects, about, workExperience, quickInfo, socials, education] = await Promise.all([
-	getCollection('posts', (post) => post.data.draft !== true),
-	getCollection('projects'),
-	getEntry('other', 'about'),
-	getCollection('workExperience'),
-	getCollection('quickInfo'),
-	getCollection('socials'),
-	getCollection('education')
-]);
+const [posts, projects, about, workExperience, quickInfo, socials] =
+  await Promise.all([
+    getCollection("posts", (post) => post.data.draft !== true),
+    getCollection("projects"),
+    getEntry("other", "about"),
+    getCollection("workExperience"),
+    getCollection("quickInfo"),
+    getCollection("socials"),
+  ]);
 
 // biome-ignore lint/style/noNonNullAssertion: Should always be defined.
 const { Content: About } = await render(about!);
 ---
 
 <Layout
-	title={openGraph.home.title || name}
-	description={openGraph.home.description}
-	pagefindIgnore
+  title={openGraph.home.title || name}
+  description={openGraph.home.description}
+  pagefindIgnore
 >
-	<div class="layout-grid-left" slot="left">
-		<Card class="flex-col-card">
-			<ImageGlow quality={100} width={80} height={80} src={ProfilePicture} alt="Real Geek" loading='eager' />
-			<h2>{name}</h2>
-			<ul class="overview-list">
-				{quickInfo.map((info) => (
-					<li>
-						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
-						<span>{info.data.text}</span>
-					</li>
-				))}
-			</ul>
-		</Card>
-		<Card>
-			<h3 class="no-mt">Education</h3>
-			<ul class="overview-list">
-				{education.map((info) => (
-					<li>
-						<Icon type={info.data.icon.type} name={info.data.icon.name as any} width={24} height={24} class='glow-icon' />
-						<span>{info.data.text}</span>
-					</li>
-				))}
-			</ul>
-		</Card>
-		<Card>
-			<h3 class="no-mt">Socials</h3>
-			<ul class="overview-list" >
-				{socials.map((item) => (
-					<li style="margin: 0;">
-						<a href={item.data.link} class="socials-link">
-							<Icon type={item.data.icon.type} name={item.data.icon.name as any} width={24} height={24} class='glow-icon' />
-							<span>{item.data.text}</span>
-						</a>
-					</li>
-				))}
-			</ul>
-		</Card>
+  <div class="layout-grid-left" slot="left">
+    <Card class="flex-col-card">
+      <ImageGlow
+        quality={100}
+        width={80}
+        height={80}
+        src={ProfilePicture}
+        alt="Louis looking out of a window"
+        loading="eager"
+      />
+      <h2>{name}</h2>
+      <ul class="overview-list">
+        {
+          quickInfo.map((info) => (
+            <li>
+              <Icon
+                type={info.data.icon.type}
+                name={info.data.icon.name as any}
+                width={24}
+                height={24}
+                class="glow-icon"
+              />
+              <span>{info.data.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </Card>
+    <Card>
+      <h3 class="no-mt">Socials</h3>
+      <ul class="overview-list">
+        {
+          socials.map((item) => (
+            <li style="margin: 0;">
+              <a href={item.data.link} class="socials-link">
+                <Icon
+                  type={item.data.icon.type}
+                  name={item.data.icon.name as any}
+                  width={24}
+                  height={24}
+                  class="glow-icon"
+                />
+                <span>{item.data.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </Card>
+  </div>
+  <div class="layout-grid-right" slot="right">
+    <Card>
+      <div class="header-container">
+        <Icon
+          type="lucide"
+          name="user"
+          width={24}
+          height={24}
+          class="glow-icon"
+        />
+        <h2>About me</h2>
+      </div>
+      <div class="description-container" data-entry-id="about">
+        <div class="description-content">
+          <div class="prose">
+            <About />
+          </div>
+        </div>
+        <div class="fade-overlay"></div>
+        <button class="show-more-btn" data-target="about">
+          <span class="show-more-text">Show more</span>
+          <span class="show-less-text" style="display: none;">Show less</span>
+        </button>
+      </div>
+    </Card>
+    <Card>
+      <Card>
+        <div class="header-container">
+          <Icon
+            type="lucide"
+            name="bug-off"
+            width={24}
+            height={24}
+            class="glow-icon"
+          />
+          <h2>Skills</h2>
+        </div>
+        <div class="prose">
+          <Skills />
+        </div>
+      </Card>
+      <Card>
+        <div class="header-container">
+          <Icon
+            type="lucide"
+            name="rss"
+            width={24}
+            height={24}
+            class="glow-icon"
+          />
+          <h2>Latest Posts</h2>
+        </div>
+        <div class="content-container">
+          {
+            posts
+              .sort(
+                (a, b) =>
+                  b.data.createdAt.getTime() - a.data.createdAt.getTime()
+              )
+              .slice(0, 2)
+              .map((post) => (
+                <a href={`/blog/${post.id}`} class="post-container">
+                  <div class="post-header">
+                    <h3>{post.data.title}</h3>
+                    <span class="post-date">
+                      {post.data.createdAt.toLocaleDateString()}
+                    </span>
+                  </div>
+                  <span>{post.data.description}</span>
+                </a>
+              ))
+          }
+        </div>
+      </Card>
+      <Card>
+        <div class="header-container">
+          <Icon
+            type="lucide"
+            name="folder-git"
+            width={24}
+            height={24}
+            class="glow-icon"
+          />
+          <h2>Latest Projects</h2>
+        </div>
+        <div class="content-container">
+          {
+            projects
+              .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+              .slice(0, 2)
+              .map((project) => (
+                <a href={`/projects/${project.id}`} class="post-container">
+                  <div class="post-header">
+                    <h3>{project.data.title}</h3>
+                    <span class="post-date">
+                      {project.data.date.toLocaleDateString()}
+                    </span>
+                  </div>
+                  <span>{project.data.description}</span>
+                </a>
+              ))
+          }
+        </div>
+      </Card>
+      <Card>
+        <div class="header-container">
+          <Icon
+            type="lucide"
+            name="briefcase-business"
+            width={24}
+            height={24}
+            class="glow-icon"
+          />
+          <h2>Work Experience</h2>
+        </div>
+        <div class="work-experience-container">
+          {
+            workExperience.reverse().map((entry, index) => (
+              <div class="work-experience-entry">
+                <span class="work-experience-duration">
+                  {entry.data.duration}
+                </span>
+                <h3 class="work-experience-company">{entry.data.company}</h3>
+                <span class="work-experience-role">{entry.data.title}</span>
+                <div
+                  class="description-container"
+                  data-entry-id={`work-${index}`}
+                >
+                  <div class="description-content">
+                    <p
+                      class="work-experience-desc"
+                      set:html={entry.data.description.replace(/\n/g, "<br>")}
+                    />
+                  </div>
+                  <div class="fade-overlay" />
+                  <button class="show-more-btn" data-target={`work-${index}`}>
+                    <span class="show-more-text">Show more</span>
+                    <span class="show-less-text" style="display: none;">
+                      Show less
+                    </span>
+                  </button>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </Card>
 
-	</div>
-	<div class="layout-grid-right" slot="right">
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="user" width={24} height={24} class='glow-icon' />
-				<h2>About me</h2>
-			</div>
-			<div class="prose">
-				<About />
-			</div>
-		</Card>
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="bug-off" width={24} height={24} class='glow-icon' />
-				<h2>Skills</h2>
-			</div>
-			<div class="prose">
-				<Skills />
-			</div>
-		</Card>
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="rss" width={24} height={24} class='glow-icon' />
-				<h2>Latest Posts</h2>
-			</div>
-			<div class="content-container">
-				{posts.sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()).slice(0, 2).map((post) => (
-					<a href={`/blog/${post.id}`} class="post-container">
-						<div class="post-header">
-							<h3>{post.data.title}</h3>
-							<span class="post-date">{post.data.createdAt.toLocaleDateString()}</span>
-						</div>
-						<span>{post.data.description}</span>
-					</a>
-				))}
-			</div>
-		</Card>
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="folder-git" width={24} height={24} class='glow-icon' />
-				<h2>Latest Projects</h2>
-			</div>
-			<div class="content-container">
-				{projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 2).map((project) => (
-					<a href={`/projects/${project.id}`} class="post-container">
-						<div class="post-header">
-							<h3>{project.data.title}</h3>
-							<span class="post-date">{project.data.date.toLocaleDateString()}</span>
-						</div>
-						<span>{project.data.description}</span>
-					</a>
-				))}
-			</div>
-		</Card>
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="briefcase-business" width={24} height={24} class='glow-icon' />
-				<h2>Work Experience</h2>
-			</div>
-			<div class="work-experience-container">
-				{workExperience.reverse().map((entry) => (
-					<div class="work-experience-entry">
-						<span class="work-experience-duration">{entry.data.duration}</span>
-						<h3 class="work-experience-company">{entry.data.company}</h3>
-						<span class="work-experience-role">{entry.data.title}</span>
-					<p class="work-experience-desc" set:html={entry.data.description.replace(/\n/g, '<br>')}></p>
-					</div>
-				))}
-			</div>
-		</Card>
-		<Card>
-			<div class="header-container">
-				<Icon type='lucide' name="briefcase-business" width={24} height={24} class='glow-icon' />
-				<h2>Hackathons</h2>
-			</div>
-			<div class="work-experience-container">
-			 {hacks.map((hack) => (
-				<div class="work-experience-entry">
-					<span class="work-experience-company">{hack.name}</span>
-					<h3 class="work-experience-role">{hack.award}</h3>
-					<span class="work-experience-desc" set:html={hack.description.replace(/\n/g, '<br>')}></span>
-				</div>
-				))}
-			</div>
-		</Card>
-	</div>
+      <Card>
+        <div class="header-container">
+          <Icon
+            type="lucide"
+            name="briefcase-business"
+            width={24}
+            height={24}
+            class="glow-icon"
+          />
+          <h2>Hackathons</h2>
+        </div>
+        <div class="work-experience-container">
+          {
+            hacks.map((hack, index) => (
+              <div class="work-experience-entry">
+                <span class="work-experience-company">{hack.name}</span>
+                <h3 class="work-experience-role">{hack.award}</h3>
+                <div
+                  class="description-container"
+                  data-entry-id={`hack-${index}`}
+                >
+                  <div class="description-content">
+                    <span
+                      class="work-experience-desc"
+                      set:html={hack.description.replace(/\n/g, "<br>")}
+                    />
+                  </div>
+                  <div class="fade-overlay" />
+                  <button class="show-more-btn" data-target={`hack-${index}`}>
+                    <span class="show-more-text">Show more</span>
+                    <span class="show-less-text" style="display: none;">
+                      Show less
+                    </span>
+                  </button>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </Card>
+      <script>
+        // Initialize show more functionality
+        document.addEventListener("DOMContentLoaded", function () {
+          const containers = document.querySelectorAll(
+            ".description-container"
+          );
+
+          containers.forEach((container) => {
+            const content = container.querySelector(".description-content");
+            const button = container.querySelector(".show-more-btn");
+            const showMoreText = button.querySelector(".show-more-text");
+            const showLessText = button.querySelector(".show-less-text");
+
+            // Check if content overflows
+            if (content.scrollHeight <= content.clientHeight) {
+              container.classList.add("no-overflow");
+              return;
+            }
+
+            button.addEventListener("click", function () {
+              const isExpanded = container.classList.contains("expanded");
+
+              if (isExpanded) {
+                // Collapse
+                container.classList.remove("expanded");
+                showMoreText.style.display = "inline";
+                showLessText.style.display = "none";
+              } else {
+                // Expand
+                container.classList.add("expanded");
+                showMoreText.style.display = "none";
+                showLessText.style.display = "inline";
+              }
+            });
+          });
+        });
+      </script>
+    </Card>
+  </div>
 </Layout>

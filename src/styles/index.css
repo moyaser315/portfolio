@@ -87,3 +87,74 @@
   gap: .75rem;
   align-items: center;
 }
+
+
+/* added for show more/less functionality */
+	.description-container {
+		position: relative;
+		margin-top: 0.5rem;
+	}
+
+	.description-content {
+		max-height: 4rem; /* Adjust based on your line height - roughly 3 lines */
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+		position: relative;
+	}
+
+	.description-container.expanded .description-content {
+		max-height: none;
+	}
+
+	.fade-overlay {
+		position: absolute;
+		bottom: 2.0rem; /* Height of the button */
+		left: 0;
+		right: 0;
+		height: 2rem;
+		background: linear-gradient(transparent, var(--card-background, #121212));
+		pointer-events: none;
+		transition: opacity 0.4s ease-out;
+	}
+
+	.description-container.expanded .fade-overlay {
+		opacity: 0;
+	}
+
+	.show-more-btn {
+		background: none;
+		/* border: none; */
+		color: var(--accent-color, #8c5cf5);
+    border-radius: 2px;
+    outline: 2px solid var(--accent-color, #8c5cf5);
+		outline-offset: 2px;
+		cursor: pointer;
+		padding: 0.25rem 0;
+		font-size: 0.875rem;
+		font-weight: 500;
+		transition: opacity 0.2s ease;
+		margin-top: 0.5rem;
+		display: block;
+    margin: 0.5rem auto 0 auto;
+	}
+
+	.show-more-btn:hover {
+		opacity: 0.8;
+	}
+
+	.show-more-btn:focus {
+		outline: 2px solid var(--accent-color, #8c5cf5);
+		outline-offset: 2px;
+		border-radius: 2px;
+    text-align: center;
+    margin: 0.5rem auto 0 auto;
+	}
+
+	/* Hide button when content is short enough */
+	.description-container.no-overflow .show-more-btn {
+		display: none;
+	}
+
+	.description-container.no-overflow .fade-overlay {
+		display: none;
+	}
