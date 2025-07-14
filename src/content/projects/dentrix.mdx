@@ -1,7 +1,7 @@
 ---
 title: Dentrix
 date: 2025-06-22
-description: Dentrix is a teeth CAD Desktop application, built using C++, python and rust.
+description: Dentrix is a dental CAD desktop application, built using C++, Python, and Rust.
 image: ../assets/dentrix/bg.png
 info:
   - text: GitHub
@@ -16,30 +16,46 @@ import acc from '../assets/dentrix/acc.png';
 import iou from '../assets/dentrix/IoU.png';
 import lower from '../assets/dentrix/Lower_pred.png';
 import upper from '../assets/dentrix/upper_pred.png';
+import algo from '../assets/dentrix/algo.png';
+import before from '../assets/dentrix/before.png';
+import after from '../assets/dentrix/after.png';
 
-Dentrix is a teeth CAD Desktop application, built using C++, python and rust.
+Dentrix is a dental CAD desktop application, built using C++, Python, and Rust.
 
-It was my capstone project, and I was part of the AI team where I worked on Data prepration and teeth Segementation, and also part of the Computional Geometry team (CG), where I worked on Mesh reconstruction and Arch alignment.
+It was my capstone project, where I was part of the AI team — working on data preparation and teeth segmentation — and also part of the Computational Geometry (CG) team, focusing on mesh reconstruction and arch alignment.
 
-For full version of my work, you can access it through this [PDF](https://drive.google.com/file/d/13BsfVloyzeu3lFfAb5GM3gu4a_x9m1jc/view?usp=sharing)
+For the full version of my work, you can view this [PDF](https://drive.google.com/file/d/13BsfVloyzeu3lFfAb5GM3gu4a_x9m1jc/view?usp=sharing).
+
 ## AI
 
-### Dataset Prepration
+Tools used: Pytorch, Sci-Kit Image, Sci-Kit Learn, Pandas, Numpy, MatplotLib, ONNX
 
-The dataset used is Teeth3DS, which first introduced at MICCAI 2022. It was developed through a collaboration between **Udini (France)**, the **Inria Grenoble Morpheo team (France)**, and the **Digital Research Center of Sfax (Tunisia)**.
+### Dataset Preparation
 
-I made an extensive statstical and geomtrical analysis onthe data with full EDA.
+The dataset used is **Teeth3DS**, first introduced at MICCAI 2022. It was developed through a collaboration between **Udini (France)**, the **Inria Grenoble Morpheo team (France)**, and the **Digital Research Center of Sfax (Tunisia)**.
 
-The most Important insights where:
+I performed extensive statistical and geometrical analysis on the dataset with full EDA.
 
-- The kurtosis of Z-axis is 3.9, which means it's synthic, and we could Ignore some of its vertices as it represents cast depth.  
-- Median of teeth vertices is 24K points nearly, which is used for sampling the meshes into Pointclouds, leaving space for Augmentation for 50% of training data, as all of its vertices is used
-- all data points are non-watertight and non-manifold
+The most important insights were:
+
+- The kurtosis of the Z-axis is 3.9, indicating synthetic characteristics. Some vertices can be ignored as they represent cast depth.  
+- The median number of teeth vertices is approximately 24K points, which was used for downsampling the meshes into point clouds. This left room for augmentation in 50% of the training data.
+- All data points are **non-watertight** and **non-manifold**.
 
 ### Models Implemented
 
-First I tried implementing meshCNN tom avoid sampling overhead, but it failed as it only accepts manifold data.
-So I tried working with Pointclouds and Implemented PointNet, and it showed promising results, but suffered from dataset Impalance.
+Initially, I implemented **MeshCNN** to avoid sampling overhead. However, it failed since it requires manifold data.
+
+I then worked with point clouds and implemented **PointNet**, which showed promising results but suffered from **class imbalance**.
+
+### Key Results
+
+- Reduced memory usage from **21 GB and 90 min/epoch** (original, with online sampling) to:
+  - **10 GB**, with a **52.4% memory reduction**, same epoch time (90 min) but **15 min for cached epochs**, using online sampling with caching of the next 5 epochs.
+  - **6 GB**, with a **71% memory reduction** and **12 min/epoch**, by using the median number of vertices as a sampling threshold and performing offline sampling before training.
+- Achieved **90.8% Accuracy** and nearly **80% IoU** on the test set.
+
+
 
 ### Plots
 
@@ -59,10 +75,6 @@ So I tried working with Pointclouds and Implemented PointNet, and it showed prom
   </div>
 </div>
 
-
-
-
-
 ### Results
 
 <div
@@ -74,16 +86,54 @@ So I tried working with Pointclouds and Implemented PointNet, and it showed prom
   }}
 >
   <div style={{ flex: '1 1 200px', maxWidth: '400px' }}>
-    <Image src={lower} alt="Accuracy" width={400} />
+    <Image src={lower} alt="Lower Prediction" width={400} />
   </div>
   <div style={{ flex: '1 1 200px', maxWidth: '400px' }}>
-    <Image src={upper} alt="IoU" width={400} />
+    <Image src={upper} alt="Upper Prediction" width={400} />
   </div>
 </div>
 
-as can be seen due to impalance gums are almost predicted perfectly, but teeth on the other hand have parts classified as gum. 
-## Computional Geometry
+As seen above, due to class imbalance, the **gums** were predicted almost perfectly. However, the **teeth** occasionally had regions misclassified as gum.
 
-### Algorthim
+## Computational Geometry
+
+Teeth alignment is crucial for understanding the context of a prepared tooth, ensuring optimal bite strength and accurate jaw closure — making it ready for subsequent dental procedures.
+
+Tools used: C++, PMP library
+### Algorithm
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '1rem',
+    justifyContent: 'left',
+  }}
+>
+  <div style={{ flex: '1 1 200px', maxWidth: '600px', background: 'white' }}>
+    <Image src={algo} alt="Alignment Algorithm" />
+  </div>
+</div>
 
 ### Results
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '2rem',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }}
+>
+  <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+    <p><strong>Before Alignment</strong></p>
+    <Image src={before} alt="Before Alignment" width={400} />
+  </div>
+  <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+    <p><strong>After Alignment</strong></p>
+    <Image src={after} alt="After Alignment" width={400} />
+  </div>
+</div>
+
+
