@@ -1,0 +1,89 @@
+---
+title: Dentrix
+date: 2025-06-22
+description: Dentrix is a teeth CAD Desktop application, built using C++, python and rust.
+image: ../assets/dentrix/bg.png
+info:
+  - text: GitHub
+    link: https://github.com/moyaser315/3dmodels
+    icon:
+      type: lucide
+      name: github
+---
+
+import { Image } from 'astro:assets';
+import acc from '../assets/dentrix/acc.png';
+import iou from '../assets/dentrix/IoU.png';
+import lower from '../assets/dentrix/Lower_pred.png';
+import upper from '../assets/dentrix/upper_pred.png';
+
+Dentrix is a teeth CAD Desktop application, built using C++, python and rust.
+
+It was my capstone project, and I was part of the AI team where I worked on Data prepration and teeth Segementation, and also part of the Computional Geometry team (CG), where I worked on Mesh reconstruction and Arch alignment.
+
+For full version of my work, you can access it through this [PDF](https://drive.google.com/file/d/13BsfVloyzeu3lFfAb5GM3gu4a_x9m1jc/view?usp=sharing)
+## AI
+
+### Dataset Prepration
+
+The dataset used is Teeth3DS, which first introduced at MICCAI 2022. It was developed through a collaboration between **Udini (France)**, the **Inria Grenoble Morpheo team (France)**, and the **Digital Research Center of Sfax (Tunisia)**.
+
+I made an extensive statstical and geomtrical analysis onthe data with full EDA.
+
+The most Important insights where:
+
+- The kurtosis of Z-axis is 3.9, which means it's synthic, and we could Ignore some of its vertices as it represents cast depth.  
+- Median of teeth vertices is 24K points nearly, which is used for sampling the meshes into Pointclouds, leaving space for Augmentation for 50% of training data, as all of its vertices is used
+- all data points are non-watertight and non-manifold
+
+### Models Implemented
+
+First I tried implementing meshCNN tom avoid sampling overhead, but it failed as it only accepts manifold data.
+So I tried working with Pointclouds and Implemented PointNet, and it showed promising results, but suffered from dataset Impalance.
+
+### Plots
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '1rem',
+    justifyContent: 'center',
+  }}
+>
+  <div style={{ flex: '1 1 200px', maxWidth: '400px' }}>
+    <Image src={acc} alt="Accuracy" width={400} />
+  </div>
+  <div style={{ flex: '1 1 200px', maxWidth: '400px' }}>
+    <Image src={iou} alt="IoU" width={400} />
+  </div>
+</div>
+
+
+
+
+
+### Results
+
+<div
+  style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '1rem',
+    justifyContent: 'center',
+  }}
+>
+  <div style={{ flex: '1 1 200px', maxWidth: '400px' }}>
+    <Image src={lower} alt="Accuracy" width={400} />
+  </div>
+  <div style={{ flex: '1 1 200px', maxWidth: '400px' }}>
+    <Image src={upper} alt="IoU" width={400} />
+  </div>
+</div>
+
+as can be seen due to impalance gums are almost predicted perfectly, but teeth on the other hand have parts classified as gum. 
+## Computional Geometry
+
+### Algorthim
+
+### Results
